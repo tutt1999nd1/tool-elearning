@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="style.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="xlsx.full.min.js"></script>
+
+</head>
+<body>
+<div class="main">
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Tải file đáp án lên</div>
+            <div class="panel-body">
+                <!-- Input type file to upload excel file -->
+                <input type="file" id="fileUpload" accept=".xls,.xlsx" /><br />
+                <button type="button" id="uploadExcel">Sao chép</button>
+
+                <!-- Render parsed JSON data here -->
+                <div style="margin-top:10px;">
+                    <pre id="jsonData"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="index.js"></script>
+</html>

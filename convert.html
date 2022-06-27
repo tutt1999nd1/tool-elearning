@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Upload And Convert Excel File into JSON in Javascript</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.3/xlsx.full.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+    <h4>Upload And Convert Excel File into JSON in Javascript</h4>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Upload And Convert Excel File into JSON in Javascript</div>
+        <div class="panel-body">
+            <!-- Input type file to upload excel file -->
+            <input type="file" id="fileUpload" accept=".xls,.xlsx" /><br />
+            <button type="button" id="uploadExcel">Convert</button>
+
+            <!-- Render parsed JSON data here -->
+            <div style="margin-top:10px;">
+                <pre id="jsonData"></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var selectedFile;
+    var arr=[];
+    document
+        .getElementById("fileUpload")
+        .addEventListener("change", function(event) {
+            selectedFile = event.target.files[0];
+        });
+    document
+        .getElementById("uploadExcel")
+        .addEventListener("click", function() {
+            let answers={answers:[]}
+            if (selectedFile) {
+                var fileReader = new FileReader();
+                fileReader.onload = function(event) {
+                    var data = event.target.result;
+
+                    var workbook = XLSX.read(data, {
+                        type: "binary"
+                    });
+                    let rowObject;
+                    workbook.SheetNames.forEach(sheet => {
+                         rowObject = XLSX.utils.sheet_to_row_object_array(
+                            workbook.Sheets[sheet]
+                        );
+                        let jsonObject = JSON.stringify(rowObject);
+                        document.getElementById("jsonData").innerHTML = jsonObject;
+                    });
+                    console.log("rowObject",rowObject)
+                    for (let i = 1 ;i<rowObject.length;i++){
+                        let q = {
+                            q:rowObject[i].__EMPTY,
+                            a:[]
+                        }
+                        if((rowObject[i].__EMPTY_1+"").includes("1")){
+                            q.a.push(rowObject[i].__EMPTY_2+"")
+                        }
+                        if((rowObject[i].__EMPTY_1+"").includes("2")){
+                            q.a.push(rowObject[i].__EMPTY_3+"")
+                        }
+                        if((rowObject[i].__EMPTY_1+"").includes("3")){
+                            q.a.push(rowObject[i].__EMPTY_4+"")
+                        }
+                        if((rowObject[i].__EMPTY_1+"").includes("4")){
+                            q.a.push(rowObject[i].__EMPTY_5+"")
+                        }
+
+                        answers.answers.push(q)
+                    }
+                    console.log("answers",JSON.stringify(answers))
+                };
+                fileReader.readAsBinaryString(selectedFile);
+
+            }
+
+        });
+    // for (let i = 0 ;i <)
+    const convert = (a,q) => {
+        console.log("arrr",arr)
+      //   console.log("arr,",arr)
+      // let array = []
+      //   for (let i =0;i<arr[0].length;i++){
+      //       let ob = arr[0][i]
+      //       // console.log(ob)
+      //   }
+    }
+
+</script>
+</body>
+</html>
